@@ -43,19 +43,75 @@ Outlook not so good.
 Very doubtful.
 */
 
+const answersByCategory = [
+  {
+    name: "very positive",
+    answers: [
+      "It is certain.",
+      "It is decidedly so.",
+      "Without a doubt.",
+      "Yes - definitely.",
+      "You may rely on it."
+    ]
+  },
+  {
+    name: "positive",
+    answers: [
+      "As I see it, yes.",
+      "Most likely.",
+      "Outlook good.",
+      "Yes.",
+      "Signs point to yes."
+    ]
+  },
+  {
+    name: "negative",
+    answers: [
+      "Reply hazy, try again.",
+      "Ask again later.",
+      "Better not tell you now.",
+      "Cannot predict now.",
+      "Concentrate and ask again."
+    ]
+  },
+  {
+    name: "very negative",
+    answers: [
+      "Don't count on it.",
+      "My reply is no.",
+      "My sources say no.",
+      "Outlook not so good.",
+      "Very doubtful."
+    ]
+  }
+];
+
 // This should log "The ball has shaken!"
 // and return the answer.
-function shakeBall() {}
+function shakeBall() {
+  const answers = answersByCategory.reduce(
+    (answers, categoryAnswers) => answers.concat(categoryAnswers.answers),
+    []
+  );
+  console.log("The ball has shaken!");
+  return answers[Math.round(Math.random() * (answers.length - 1))];
+}
 
 // The answer should come from shaking the ball
-let answer;
+// let answer;
 
 // When checking the answer, we should tell someone if the answer is
 // - very positive
 // - positive
 // - negative
 // - very negative
-function checkAnswer() {}
+function checkAnswer(answer) {
+  for (const categoryAnswers of answersByCategory) {
+    if (categoryAnswers.answers.includes(answer)) {
+      return categoryAnswers.name;
+    }
+  }
+}
 
 /* ======= TESTS - DO NOT MODIFY ===== */
 const log = console.log;
