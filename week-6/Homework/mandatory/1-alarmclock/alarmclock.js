@@ -93,7 +93,7 @@ addEventListener("DOMContentLoaded", function setupTimeLeft() {
   const el = document.querySelector("#timeRemaining");
 
   function update(timeLeft) {
-    el.textContent = `Time Remaining: ${formatDuration(timeLeft)}`;
+    el.textContent = formatDuration(timeLeft);
   }
 
   function updateWhileRunning() {
@@ -110,6 +110,8 @@ addEventListener("DOMContentLoaded", function setupTimeLeft() {
       else if (state.name === "STOPPED") update(0);
     })
   );
+
+  update(0);
 });
 
 (function setupTimer() {
