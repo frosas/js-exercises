@@ -105,9 +105,12 @@ addEventListener("DOMContentLoaded", function setupTimeLeft() {
   }
 
   alarm.onUpdate(
-    ifTransitionedState((state) => {
+    ifTransitionedState((state, previousState) => {
       if (state.name === "RUNNING") updateWhileRunning();
       else if (state.name === "STOPPED") update(0);
+
+      if (state.name === "PAUSED") el.classList.add("blink");
+      else if (previousState.name === "PAUSED") el.classList.remove("blink");
     })
   );
 
