@@ -92,14 +92,19 @@ function ifTransitionedState(callback) {
 addEventListener("DOMContentLoaded", function setupTimeLeft() {
   const el = document.querySelector("#timeRemaining");
 
-  function update(timeLeft) {
-    el.textContent = formatDuration(timeLeft);
+  function getTimeLeft() {
+    return ["RUNNING", "PAUSED"].includes(alarm.state.name)
+      ? Math.max(0, alarm.state.dueDate - Date.now())
+      : 0;
+  }
+
+  function update() {
+    el.textContent = formatDuration(getTimeLeft());
   }
 
   function updateWhileRunning() {
     if (alarm.state.name === "RUNNING") {
-      const timeLeft = Math.max(0, alarm.state.dueDate - Date.now());
-      update(timeLeft);
+      update();
       requestAnimationFrame(updateWhileRunning);
     }
   }
@@ -107,14 +112,14 @@ addEventListener("DOMContentLoaded", function setupTimeLeft() {
   alarm.onUpdate(
     ifTransitionedState((state, previousState) => {
       if (state.name === "RUNNING") updateWhileRunning();
-      else if (state.name === "STOPPED") update(0);
+      else update();
 
       if (state.name === "PAUSED") el.classList.add("blink");
       else if (previousState.name === "PAUSED") el.classList.remove("blink");
     })
   );
 
-  update(0);
+  update();
 });
 
 (function setupTimer() {
