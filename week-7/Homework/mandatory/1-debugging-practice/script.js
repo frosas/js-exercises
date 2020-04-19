@@ -73,7 +73,6 @@ function render() {
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
-    changeBut.id = i;
     changeBut.className = "btn btn-success";
     cell4.appendChild(changeBut);
     let readStatus = "";
