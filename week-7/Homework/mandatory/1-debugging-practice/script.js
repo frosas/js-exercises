@@ -1,6 +1,6 @@
 let myLibrary = [];
 
-window.addEventListener("load", function (e) {
+window.addEventListener("load", function () {
   populateStorage();
   render();
 });
@@ -27,6 +27,8 @@ const check = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
+// Function is called from the HTML
+// eslint-disable-next-line no-unused-vars
 function submit() {
   if (
     title.value == null ||
